@@ -153,7 +153,7 @@ const Courses = () => {
       )}
 
       {/* ---------------- TABLE ---------------- */}
-      <section className="flex mx-auto w-full max-h-[540px] custom-scroll overflow-y-auto rounded-2xl shadow-xl bg-white/10 backdrop-blur-xl border border-white/20">
+      <section className="flex mx-auto w-full max-h-[calc(100vh-230px)] custom-scroll overflow-y-auto rounded-2xl shadow-xl bg-white/10 backdrop-blur-xl border border-white/20">
         <table className="w-full table-fixed border-separate border-spacing-0">
           <thead className="sticky top-0 bg-white/40 backdrop-blur-xl z-20 border-b border-white/20">
             <tr className="text-gray-800 text-sm uppercase tracking-wide">

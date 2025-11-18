@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import BlogForm from "../forms/BlogForm"; // Add / Edit form
-import ShowBlog from "../forms/ShowBlog"; // View blog modal
+import BlogForm from "../forms/BlogForm";
+import ShowBlog from "../forms/ShowBlog";
 import { FaPenToSquare, FaRegTrashCan, FaRegEye } from "react-icons/fa6";
 import "./table.css";
 
@@ -12,21 +12,15 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [modalType, setModalType] = useState(null); // add | edit | view | delete
+  const [modalType, setModalType] = useState(null);
   const [selectedBlog, setSelectedBlog] = useState(null);
-
-  // pagination
-  const [page, setPage] = useState(1);
-  const limit = 10;
 
   const modalRef = useRef(null);
 
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(
-        `${BASE_URL}/blogapi/blogs`
-      );
+      const res = await axios.get(`${BASE_URL}/blogapi/blogs`);
       setBlogs(res.data.blogData || []);
     } catch (err) {
       console.error("Fetch blogs error:", err);
@@ -37,7 +31,7 @@ const Blog = () => {
 
   useEffect(() => {
     fetchBlogs();
-  }, [page]);
+  }, []);
 
   const openModal = (type, blog = null) => {
     setSelectedBlog(blog);
@@ -49,7 +43,6 @@ const Blog = () => {
     setSelectedBlog(null);
   };
 
-  // ESC close modal
   useEffect(() => {
     const handleEsc = (e) => e.key === "Escape" && closeAllModals();
     window.addEventListener("keydown", handleEsc);
@@ -60,7 +53,6 @@ const Blog = () => {
     if (!selectedBlog) return;
     try {
       await axios.delete(`${BASE_URL}/blogapi/blog/${selectedBlog._id}`);
-
       toast.success("Blog deleted successfully!");
       closeAllModals();
       fetchBlogs();
@@ -83,8 +75,6 @@ const Blog = () => {
           Add Blog
         </button>
       </nav>
-
-      {/* ---------------- MODALS ---------------- */}
 
       {(modalType === "add" || modalType === "edit") && (
         <div
@@ -144,8 +134,8 @@ const Blog = () => {
         </div>
       )}
 
-      {/* ---------------- TABLE ---------------- */}
-      <section className="flex mx-auto w-full max-h-[540px] custom-scroll overflow-y-auto rounded-2xl shadow-xl bg-white/10 backdrop-blur-xl border border-white/20">
+      {/* TABLE */}
+      <section className="flex mx-auto w-full max-h-[calc(100vh-230px)] custom-scroll overflow-y-auto rounded-2xl shadow-xl bg-white/10 backdrop-blur-xl border border-white/20">
         <table className="w-full table-fixed border-separate border-spacing-0">
           <thead className="sticky top-0 bg-white/40 backdrop-blur-xl z-20 border-b border-white/20">
             <tr className="text-gray-800 text-sm uppercase tracking-wide">
@@ -190,9 +180,7 @@ const Blog = () => {
                       index % 2 === 0 ? "bg-white/5" : "bg-white/30"
                     } hover:bg-white/60 backdrop-blur-sm`}
                   >
-                    <td className="px-3 py-4">
-                      {(page - 1) * limit + index + 1}
-                    </td>
+                    <td className="px-3 py-4">{index + 1}</td>
 
                     <td className="p-4 w-2/5">
                       <div className="flex flex-col">
@@ -206,7 +194,6 @@ const Blog = () => {
                     </td>
 
                     <td className="px-4 py-4">{blog.category}</td>
-
                     <td className="px-4 py-4">{blog.author}</td>
 
                     <td className="px-4 py-4">
@@ -243,24 +230,6 @@ const Blog = () => {
           </tbody>
         </table>
       </section>
-
-      {/* Pagination */}
-      <div className="flex justify-center gap-4 mt-4">
-        <button
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          disabled={page === 1}
-          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50"
-        >
-          Prev
-        </button>
-
-        <button
-          onClick={() => setPage((p) => p + 1)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Next
-        </button>
-      </div>
     </main>
   );
 };
