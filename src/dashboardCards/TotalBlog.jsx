@@ -11,7 +11,7 @@ const TotalBlog = () => {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/blogapi/blog/count`);
+        const res = await axios.get(`${BASE_URL}/blogapi/blogs/count`);
         setCount(res.data.count);
       } catch (error) {
         console.log("Error fetching blog count:", error);

@@ -1,17 +1,20 @@
+// src/components/forms/ShowBlog.jsx
 import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import {
-  Newspaper,
-  FileText,
-  CalendarDays,
-  Link as LinkIcon,
-  Image as ImageIcon,
+  BookOpen,
   User,
+  Layers,
+  FileText,
+  Timer,
+  CalendarDays,
   Tag,
+  ShieldCheck,
+  Image as ImageIcon,
 } from "lucide-react";
 
-const ShowNews = ({ data, close }) => {
-  if (!data) return null;
+const ShowBlog = ({ blog, onClose }) => {
+  if (!blog) return null;
 
   return (
     <div className="max-w-2xl mx-auto mt-10">
@@ -19,11 +22,11 @@ const ShowNews = ({ data, close }) => {
         {/* Header */}
         <div className="flex justify-between items-center bg-gray-900 text-white p-5">
           <h2 className="text-2xl font-semibold flex items-center gap-2">
-            <Newspaper size={22} /> {data.title}
+            <BookOpen size={22} /> {blog.title}
           </h2>
 
           <button
-            onClick={close}
+            onClick={onClose}
             className="text-white/80 hover:text-red-400 transition text-3xl ml-3"
           >
             <IoCloseSharp />
@@ -32,10 +35,10 @@ const ShowNews = ({ data, close }) => {
 
         {/* Image */}
         <div className="w-full h-56 bg-gray-100 flex items-center justify-center overflow-hidden">
-          {data.image ? (
+          {blog.image ? (
             <img
-              src={data.image}
-              alt={data.title}
+              src={blog.image}
+              alt={blog.title}
               className="w-full h-full object-cover"
               onError={(e) => {
                 e.currentTarget.src =
@@ -55,15 +58,15 @@ const ShowNews = ({ data, close }) => {
           <div className="flex gap-3 items-start">
             <FileText className="text-gray-700 mt-1" />
             <p className="text-gray-700 leading-relaxed">
-              {data.shortDescription || "-"}
+              {blog.shortDescription || "-"}
             </p>
           </div>
 
-          {/* Content */}
+          {/* Full Content */}
           <div className="flex gap-3 items-start">
             <FileText className="text-gray-700 mt-1" />
             <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-              {data.content || "-"}
+              {blog.content || "-"}
             </p>
           </div>
 
@@ -71,43 +74,52 @@ const ShowNews = ({ data, close }) => {
           <div className="grid grid-cols-3 gap-4">
             <InfoCard
               icon={<User size={20} />}
-              label="Reporter"
-              value={data.author || "-"}
+              label="Author"
+              value={blog.author}
+            />
+
+            <InfoCard
+              icon={<Layers size={20} />}
+              label="Category"
+              value={blog.category}
             />
 
             <InfoCard
               icon={<Tag size={20} />}
-              label="Category"
-              value={data.category || "-"}
+              label="Tags"
+              value={blog.tags?.length ? blog.tags.join(", ") : "-"}
+            />
+
+            <InfoCard
+              icon={<Timer size={20} />}
+              label="Reading Time"
+              value={`${blog.readingTime || 0} min`}
             />
 
             <InfoCard
               icon={<CalendarDays size={20} />}
-              label="Published"
+              label="Created"
               value={
-                data.datePublished
-                  ? new Date(data.datePublished).toLocaleString("en-GB")
+                blog.createdAt
+                  ? new Date(blog.createdAt).toLocaleString("en-GB")
                   : "-"
               }
             />
 
             <InfoCard
-              icon={<Newspaper size={20} />}
-              label="Source"
+              icon={<CalendarDays size={20} />}
+              label="Updated"
               value={
-                data.sourceLink ? (
-                  <a
-                    href={data.sourceLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 underline"
-                  >
-                    Open Link
-                  </a>
-                ) : (
-                  "-"
-                )
+                blog.updatedAt
+                  ? new Date(blog.updatedAt).toLocaleString("en-GB")
+                  : "-"
               }
+            />
+
+            <InfoCard
+              icon={<ShieldCheck size={20} />}
+              label="Status"
+              value={blog.activeStatus ? "Active" : "Inactive"}
             />
           </div>
         </div>
@@ -115,7 +127,7 @@ const ShowNews = ({ data, close }) => {
         {/* Footer */}
         <div className="bg-gray-50 p-4 flex justify-end">
           <button
-            onClick={close}
+            onClick={onClose}
             className="px-5 py-2 bg-gray-900 text-white rounded-lg shadow hover:bg-gray-800 transition active:scale-95"
           >
             Close
@@ -126,6 +138,7 @@ const ShowNews = ({ data, close }) => {
   );
 };
 
+// InfoBox Component
 const InfoCard = ({ icon, label, value }) => (
   <div className="bg-gray-100 p-4 rounded-xl shadow-sm border border-gray-200">
     <div className="flex flex-col items-start gap-1">
@@ -137,4 +150,4 @@ const InfoCard = ({ icon, label, value }) => (
   </div>
 );
 
-export default ShowNews;
+export default ShowBlog;

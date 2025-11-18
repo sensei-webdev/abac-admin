@@ -19,7 +19,7 @@ const Students = () => {
     setLoading(true);
     try {
       const res = await axios.get(`${BASE_URL}/api/users`);
-      setUsers(res.data.users || []);
+      setUsers(res.data.userData || []);
     } catch (err) {
       console.error("Error fetching users:", err);
     } finally {

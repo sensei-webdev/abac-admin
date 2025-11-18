@@ -21,7 +21,7 @@ const News = () => {
   const fetchNews = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${BASE_URL}/newsapi/all`);
+      const res = await axios.get(`${BASE_URL}/newsapi/news/all`);
       setNews(res.data.newsData || []);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -55,7 +55,7 @@ const News = () => {
     if (!selectedNews) return;
 
     try {
-      await axios.delete(`${BASE_URL}/newsapi/delete/${selectedNews._id}`);
+      await axios.delete(`${BASE_URL}/newsapi/delete/news/${selectedNews._id}`);
 
       toast.success("News deleted successfully!");
       closeAllModals();
@@ -153,7 +153,6 @@ const News = () => {
               <th className="px-4 py-4 text-left">Image</th>
               <th className="px-4 py-4 text-left">Short Description</th>
               <th className="px-4 py-4 text-left">Published</th>
-              <th className="px-4 py-4 text-left">Status</th>
               <th className="px-4 py-4 text-left">Actions</th>
             </tr>
           </thead>
@@ -208,13 +207,7 @@ const News = () => {
                       {new Date(item.datePublished).toLocaleDateString("en-GB")}
                     </td>
 
-                    <td className="px-4 py-4">
-                      <StatusToggle
-                        id={item._id}
-                        initialStatus={item.activeStatus}
-                      />
-                    </td>
-
+                    
                     <td className="px-4 py-4 flex gap-4 items-center text-xl">
                       <button
                         onClick={() => openModal("view", item)}
