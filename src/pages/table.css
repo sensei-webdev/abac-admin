@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+table {
+  @apply rounded-2xl;
+}
+
+table thead tr {
+  @apply rounded-t-2xl;
+}
+
+thead tr th:first-child {
+  @apply rounded-tl-2xl;
+}
+
+thead tr th:last-child {
+  @apply rounded-tr-2xl;
+}
+
+table thead tr th {
+  @apply py-4 bg-white/70;
+}
+
+table tbody tr td {
+  @apply py-4;
+}
+
+/* Custom Scrollbar */
+.custom-scroll::-webkit-scrollbar {
+  width: 8px; /* width of scrollbar */
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4f46e5, #6366f1); /* gradient purple */
+  border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #4338ca, #4f46e5);
+}
+
+/* For Firefox */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 rgba(255, 255, 255, 0.1);
+}

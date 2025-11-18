@@ -1,0 +1,33 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import "./dashboard.css";
+
+const TotalUser = () => {
+  const [count, setcount] = useState(0);
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/api/users/count"
+        );
+        setcount(res.data.count);
+      } catch (error) {
+        console.log("Error fetching courses count:", error);
+      }
+    };
+
+    fetchCount();
+  }, []);
+  return (
+    <Link to="/courses" className="dashboardLinks">
+      <span className="font-semibold text-xl">Total Users</span>
+      <span className="font-bold text-5xl">
+        {String(count).padStart(2, "0")}
+      </span>
+      <p className="text-xs mt-auto">Click to add, edit or remove users</p>
+    </Link>
+  );
+};
+
+export default TotalUser;
