@@ -5,6 +5,8 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { Doughnut } from "react-chartjs-2";
 import "./dashboard.css";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const TotalCourse = () => {
   const [active, setActive] = useState(0);
   const [inactive, setInactive] = useState(0);
@@ -13,7 +15,7 @@ const TotalCourse = () => {
     const fetchStatus = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/courseapi/course-status-count"
+          `${BASE_URL}/courseapi/course-status-count`
         );
 
         setActive(res.data.data.activeCourses);

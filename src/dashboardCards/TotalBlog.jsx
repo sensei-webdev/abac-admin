@@ -3,13 +3,15 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./dashboard.css";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const TotalBlog = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/blogapi/blog/count");
+        const res = await axios.get(`${BASE_URL}/blogapi/blog/count`);
         setCount(res.data.count);
       } catch (error) {
         console.log("Error fetching blog count:", error);
