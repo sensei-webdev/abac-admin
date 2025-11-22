@@ -51,10 +51,11 @@ const Students = () => {
           <thead className="sticky top-0 bg-white/40 backdrop-blur-xl z-20 border-b border-white/20">
             <tr className="text-gray-800 text-sm uppercase tracking-wide">
               <th className="w-12 px-3 py-4 text-left">Sl</th>
+              <th className="w-28 px-4 py-4 text-left">Image</th>
               <th className="px-4 py-4 text-left">Name</th>
               <th className="px-4 py-4 text-left">Email</th>
-              <th className="px-4 py-4 text-left">Gender</th>
-              <th className="px-4 py-4 text-left">Created At</th>
+              <th className="px-4 py-4 text-left">Courses Enrolled</th>
+              <th className="px-4 py-4 text-left">Joined On</th>
               <th className="px-4 py-4 text-left">Actions</th>
             </tr>
           </thead>
@@ -96,6 +97,10 @@ const Students = () => {
                   >
                     <td className="px-3 py-4">{index + 1}</td>
 
+                    <td className="px-3 py-4">
+                      <img src={user.image} alt={user.firstName} className="object-cover size-12 rounded-full " />
+                    </td>
+
                     <td className="px-4 py-4 font-semibold text-gray-900">
                       {user.firstName} {user.lastName}
                     </td>
@@ -103,7 +108,11 @@ const Students = () => {
                     <td className="px-4 py-4">{user.email}</td>
                     <td className="px-4 py-4">{user.gender}</td>
                     <td className="px-4 py-4">
-                      {new Date(user.createdAt).toLocaleDateString("en-GB")}
+                      {new Date(user.createdAt).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
                     </td>
 
                     <td className="px-4 py-4 flex gap-4 items-center text-xl">

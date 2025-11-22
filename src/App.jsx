@@ -8,6 +8,7 @@ import Blog from "./pages/Blog";
 import News from "./pages/News";
 import Header from "./components/Header";
 import Students from "./pages/Students";
+import Login from "./pages/Login";
 import "./App.css";
 
 const App = () => {
@@ -33,7 +34,8 @@ const App = () => {
         <Toaster position="bottom-right" />
 
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/news" element={<News />} />

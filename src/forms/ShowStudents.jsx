@@ -25,6 +25,13 @@ const ShowStudents = ({ user, close }) => {
         {/* Body */}
         <div className="p-6 space-y-6">
           <div className="grid grid-cols-2 gap-4">
+            <div className="col-span-2 size-24">
+              <img
+                src={user.image}
+                alt={user.firstName}
+                className="rounded-full"
+              />
+            </div>
             <InfoCard
               icon={<Users size={20} />}
               label="Name"
@@ -37,24 +44,24 @@ const ShowStudents = ({ user, close }) => {
             />
             <InfoCard
               icon={<ShieldCheck size={20} />}
-              label="Gender"
-              value={user.gender}
+              label="Courses"
+              value={user.courses}
             />
-            <InfoCard
+            {/* <InfoCard
               icon={<ShieldCheck size={20} />}
               label="Clerk ID"
               value={user.clerkId || "-"}
-            />
+            /> */}
             <InfoCard
               icon={<CalendarDays size={20} />}
               label="Created At"
               value={new Date(user.createdAt).toLocaleString()}
             />
-            <InfoCard
+            {/* <InfoCard
               icon={<CalendarDays size={20} />}
               label="Last Updated"
               value={new Date(user.updatedAt).toLocaleString()}
-            />
+            /> */}
           </div>
         </div>
 

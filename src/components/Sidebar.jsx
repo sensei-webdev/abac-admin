@@ -13,7 +13,7 @@ const Sidebar = () => {
       : "py-2 pl-4 flex gap-3 items-center rounded-lg w-full text-base font-medium text-black/70 hover:text-black hover:bg-white/60 transition-all duration-300";
 
   const asideLinks = [
-    { name: "Dashboard", Icon: MdOutlineSpaceDashboard, link: "/" },
+    { name: "Dashboard", Icon: MdOutlineSpaceDashboard, link: "/dashboard" },
     { name: "Courses", Icon: IoBookOutline, link: "/courses" },
     { name: "News", Icon: LuNewspaper, link: "/news" },
     { name: "Blog", Icon: FaRegPenToSquare, link: "/blog" },
